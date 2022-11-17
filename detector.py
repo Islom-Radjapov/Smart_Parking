@@ -1,19 +1,24 @@
 from time import sleep
 import cv2
 import csv
+# import database
+
 
 
 class spots:
     loc = 0
-
-def drawRectangle(img, a, b, c, d):
+font = cv2.FONT_HERSHEY_SIMPLEX
+def drawRectangle(img, a, b, c, d, num):
     sub_img = img[b:b + d, a:a + c]
     edges = cv2.Canny(sub_img, lowThreshold, highThreshold)
     pix = cv2.countNonZero(edges)
     if pix in range(min, max):
+
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 255, 0), 3)
+        cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
         spots.loc += 1
     else:
+        cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 0, 255), 3)
 
 
@@ -48,15 +53,19 @@ while True:
     lowThreshold = cv2.getTrackbarPos('Threshold1', 'parameters')
     highThreshold = cv2.getTrackbarPos('Threshold2', 'parameters')
 
-    for i in range(len(rois)):
-        drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3])
 
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 3)
+    for i in range(len(rois)):
+
+        drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3], i)
+
+
+
+    # font = cv2.FONT_HERSHEY_SIMPLEX
+    # cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 3)
     # print(str(spots.loc))
     print(spots.loc)
     cv2.imshow('frame', frame)
-    sleep(0.5)
+    sleep(0.3)
 
     canny = cv2.Canny(frame2, lowThreshold, highThreshold)
     cv2.imshow('canny',canny)
