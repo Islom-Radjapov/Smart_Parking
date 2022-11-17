@@ -1,5 +1,4 @@
 from time import sleep
-
 import cv2
 import csv
 
@@ -33,8 +32,8 @@ cv2.createTrackbar('Threshold2', 'parameters', 402, 700, callback)
 cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
-VIDEO_SOURCE = "bay-park-2.gif"
-# VIDEO_SOURCE = "car.gif"
+VIDEO_SOURCE = "car_test/bay-park-2.gif"
+# VIDEO_SOURCE = 0
 cap = cv2.VideoCapture(VIDEO_SOURCE)
 
 # start the live feed
@@ -54,8 +53,10 @@ while True:
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 3)
+    # print(str(spots.loc))
+    print(spots.loc)
     cv2.imshow('frame', frame)
-    sleep(0.2)
+    sleep(0.5)
 
     canny = cv2.Canny(frame2, lowThreshold, highThreshold)
     cv2.imshow('canny',canny)
@@ -64,3 +65,6 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    ...
