@@ -1,3 +1,5 @@
+from time import sleep
+
 import cv2
 import csv
 
@@ -26,12 +28,12 @@ with open('car_data/rois.csv', 'r', newline='') as inf:
 rois = [[int(float(j)) for j in i] for i in rois]
 
 cv2.namedWindow('parameters')
-cv2.createTrackbar('Threshold1', 'parameters', 186, 700, callback)
-cv2.createTrackbar('Threshold2', 'parameters', 122, 700, callback)
+cv2.createTrackbar('Threshold1', 'parameters', 405, 700, callback)
+cv2.createTrackbar('Threshold2', 'parameters', 262, 700, callback)
 cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
-VIDEO_SOURCE = 0
+VIDEO_SOURCE = "bay-park-2.gif"
 cap = cv2.VideoCapture(VIDEO_SOURCE)
 
 # start the live feed
@@ -52,9 +54,10 @@ while True:
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 3)
     cv2.imshow('frame', frame)
+    sleep(0.1)
 
     canny = cv2.Canny(frame2, lowThreshold, highThreshold)
-    cv2.imshow('canny', canny)
+    cv2.imshow('canny',canny)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
