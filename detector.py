@@ -41,7 +41,7 @@ camera = cv2.VideoCapture(VIDEO_SOURCE)
 
 # start the live feed
 while camera.isOpened():
-    spots.loc = 0
+
 
     ret, frame = camera.read()
     ret2, frame2 = camera.read()
@@ -54,7 +54,8 @@ while camera.isOpened():
 
     for i in range(len(rois)):
         drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3], i)
-        print(get_all())
+        cv2.putText(frame, f"Barcha band joylar=> {get_all()[0]} Bosh joylar=> {get_all()[1]}", (40, 450), font, 1, (0, 255, 1), 2)
+
 
     cv2.imshow('frame', frame)
     sleep(0.2)
