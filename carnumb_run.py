@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import car_number
+import number
 import time
 
 cnt_up=0
@@ -118,7 +118,7 @@ while(cap.isOpened()):
                             del i
 
                     if new==True: #If nothing is detected,create new
-                        p=car_number.Car(pid,cx,cy,max_p_age)
+                        p=number.Car(pid,cx,cy,max_p_age)
                         cars.append(p)
                         pid+=1
 
