@@ -13,10 +13,10 @@ def drawRectangle(img, a, b, c, d, num):
     if pix in range(min, max):
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 255, 0), 3)
         cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
-        # add_stiuation(num, 0)
+        add_stiuation(num, 0)
         spots.loc += 1
     else:
-        # add_stiuation(num, 1)
+        add_stiuation(num, 1)
         cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 0, 255), 3)
 
@@ -37,7 +37,6 @@ cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
 VIDEO_SOURCE = "car_test/bay-park-2.gif"
-# VIDEO_SOURCE = 0
 camera = cv2.VideoCapture(VIDEO_SOURCE)
 
 # start the live feed
