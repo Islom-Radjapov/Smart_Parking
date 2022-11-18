@@ -19,18 +19,23 @@ def add_stiuation(lokatsion, situation):
     cursor.close()
     connect.close()
 
+# kiritilgan lakatsiya boyicha joy boshligini tekshiradi
 def get_stiuation(lokatsion):
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
     data = cursor.execute(
         f"SELECT situation FROM parking WHERE lokatsion={lokatsion}")
-    return data.fetchall()[0][0]
+    result = data.fetchall()[0][0]
+    connect.close()
+    return result
 
 def get_all():
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
-    data = cursor.execute(
-        f"SELECT * FROM parking").fetchall()
+    data_sql = cursor.execute(
+        f"SELECT * FROM parking")
+    data = data_sql.fetchall()
+    connect.close()
     band = 0
     bosh = 0
     for x in data:
