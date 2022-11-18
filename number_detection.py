@@ -1,7 +1,7 @@
 import cv2
 import easyocr
 
-plateCascade = cv2.CascadeClassifier("ML_models\model.xml")
+plateCascade = cv2.CascadeClassifier("/Users/student/Desktop/Kerakli/Project all/Django/Hakaton/ML_models/model.xml")
 
 camera = cv2.VideoCapture("test_videos/test.mp4")
 minArea = 500

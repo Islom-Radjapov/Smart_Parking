@@ -36,7 +36,7 @@ cv2.createTrackbar('Threshold2', 'parameters', 402, 700, callback)
 cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
-VIDEO_SOURCE = "car_test/bay-park-2.gif"
+VIDEO_SOURCE = "test_videos/bay-park-2.gif"
 camera = cv2.VideoCapture(VIDEO_SOURCE)
 
 # start the live feed
