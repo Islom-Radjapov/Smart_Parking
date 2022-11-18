@@ -1,55 +1,97 @@
-import cv2
-import numpy as np
-import imutils
-import easyocr
+from random import randint
+import time
 
-camera = cv2.VideoCapture("test_videos/test.mp4")
+class Car:
+    tracks=[]
+    def __init__(self,i,xi,yi,max_age):
+        self.i=i
+        self.x=xi
+        self.y=yi
+        self.tracks=[]
+        self.R=randint(0,255)
+        self.G=randint(0,255)
+        self.B=randint(0,255)
+        self.done=False
+        self.state='0'
+        self.age=0
+        self.max_age=max_age
+        self.dir=None
 
+    def getRGB(self):  #For the RGB colour
+        return (self.R,self.G,self.B)
+    def getTracks(self):
+        return self.tracks
 
-# loop through frames
-while camera.isOpened():
+    def getId(self): #For the ID
+        return self.i
 
-    status, frame = camera.read()
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    def getState(self):
+        return self.state
 
-    bfilter = cv2.bilateralFilter(gray, 11, 17, 17)
-    edged = cv2.Canny(bfilter, 30, 200)
+    def getDir(self):
+        return self.dir
 
-    keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    contours = imutils.grab_contours(keypoints)
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:10]
+    def getX(self):  #for x coordinate
+        return self.x
 
-    location = None
-    for contour in contours:
-        approx = cv2.approxPolyDP(contour, 10, True)
-        if len(approx) == 4:
-            location = approx
-            break
+    def getY(self):  #for y coordinate
+        return self.y
 
-    mask = np.zeros(gray.shape, np.uint8)
-    new_image = cv2.drawContours(mask, [location], 0,255, -1)
-    new_image = cv2.bitwise_and(frame, frame, mask=mask)
+    def updateCoords(self, xn, yn):
+        self.age = 0
+        self.tracks.append([self.x, self.y])
+        self.x = xn
+        self.y = yn
 
-    (x,y) = np.where(mask==255)
-    (x1, y1) = (np.min(x), np.min(y))
-    (x2, y2) = (np.max(x), np.max(y))
-    cropped_image = gray[x1:x2+1, y1:y2+1]
+    def setDone(self):
+        self.done = True
 
-    reader = easyocr.Reader(['en'])
-    result = reader.readtext(cropped_image)
-    res = list( result )
-    print(type(result) )
+    def timedOut(self):
+        return self.done
 
-    cv2.imshow("detection", frame)
-    # press "Q" to stop
-    if cv2.waitKey(1) == ord('q'):
-        break
+    def going_UP(self, mid_start, mid_end):
+        if len(self.tracks)>=2:
+            if self.state=='0':
+                if self.tracks[-1][1]<mid_end and self.tracks[-2][1]>=mid_end:
+                    state='1'
+                    self.dir='up'
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
 
-# release resources
-camera.release()
-cv2.destroyAllWindows()
-# text = result[0][-2]
-# font = cv2.FONT_HERSHEY_SIMPLEX
-# res = cv2.putText(img, text=text, org=(approx[0][0][0], approx[1][0][1]+60), fontFace=font, fontScale=1, color=(0,255,0), thickness=2, lineType=cv2.LINE_AA)
-# res = cv2.rectangle(img, tuple(approx[0][0]), tuple(approx[2][0]), (0,255,0),3)
-# plt.imshow(cv2.cvtColor(res, cv2.COLOR_BGR2RGB))
+    def going_DOWN(self,mid_start,mid_end):
+        if len(self.tracks)>=2:
+            if self.state=='0':
+                if self.tracks[-1][1]>mid_start and self.tracks[-2][1]<=mid_start:
+                    start='1'
+                    self.dir='down'
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+
+    def age_one(self):
+        self.age+=1
+        if self.age>self.max_age:
+            self.done=True
+        return  True
+
+#Class2
+
+class MultiCar:
+    def __init__(self,cars,xi,yi):
+        self.cars=cars
+        self.x=xi
+        self.y=yi
+        self.tracks=[]
+        self.R=randint(0,255)
+        self.G=randint(0,255)
+        self.B=randint(0,255)
+        self.done=False
