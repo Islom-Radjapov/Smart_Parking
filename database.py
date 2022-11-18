@@ -4,7 +4,7 @@ def add_stiuation(lokatsion, situation):
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
     cursor.execute(
-        f"CREATE TABLE IF NOT EXISTS parking (lokatsion integer, situation integer) ")
+        f"CREATE TABLE IF NOT EXISTS parking (lokatsion integer, situation integer) " )
 
     data = cursor.execute(
         f"SELECT * FROM parking WHERE lokatsion={lokatsion}")

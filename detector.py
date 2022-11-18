@@ -3,8 +3,6 @@ import cv2
 import csv
 from database import add_stiuation, get_stiuation
 
-
-
 class spots:
     loc = 0
 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -56,7 +54,6 @@ while True:
 
 
     for i in range(len(rois)):
-        sleep(0.4)
         print("lokation=>",i , "situation=>", get_stiuation(i).fetchone()[0])
         drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3], i)
 
@@ -67,7 +64,7 @@ while True:
     # print(str(spots.loc))
     # print(spots.loc)
     cv2.imshow('frame', frame)
-    sleep(0.5)
+    sleep(0.2)
 
     canny = cv2.Canny(frame2, lowThreshold, highThreshold)
     cv2.imshow('canny',canny)
