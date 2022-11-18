@@ -1,7 +1,7 @@
 import cv2
 import easyocr
 
-plateCascade = cv2.CascadeClassifier("/Users/student/Desktop/Kerakli/Project all/Django/Hakaton/ML_models/model.xml")
+plateCascade = cv2.CascadeClassifier("model.xml")
 
 camera = cv2.VideoCapture("test_videos/test.mp4")
 minArea = 500
@@ -24,8 +24,10 @@ while camera.isOpened():
         iff = bool(result)
         if iff:
             # faqat nomerni olish
-            print(result[1][1])
-
+            try:
+                print(result[1][1])
+            except:
+                print(result)
     cv2.imshow("Result", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
