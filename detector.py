@@ -3,8 +3,6 @@ import cv2
 import csv
 from database import add_stiuation, get_stiuation
 
-
-
 class spots:
     loc = 0
 font = cv2.FONT_HERSHEY_SIMPLEX
