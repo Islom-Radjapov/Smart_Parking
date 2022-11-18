@@ -1,7 +1,7 @@
 from time import sleep
 import cv2
 import csv
-from database import add_stiuation, get_stiuation, get_all
+from sql_code import add_stiuation, get_all
 
 class spots:
     loc = 0
@@ -25,7 +25,7 @@ def callback(foo):
     pass
 
 
-with open('car_data/rois.csv', 'r', newline='') as inf:
+with open('coordinates/rois.csv', 'r', newline='') as inf:
     csvr = csv.reader(inf)
     rois = list(csvr)
 rois = [[int(float(j)) for j in i] for i in rois]
