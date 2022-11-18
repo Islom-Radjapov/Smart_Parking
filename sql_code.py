@@ -20,15 +20,19 @@ def add_stiuation(lokatsion, situation):
     connect.close()
 
 # kiritilgan lakatsiya boyicha joy boshligini tekshiradi
-def get_stiuation(lokatsion):
+def get_stiuation():
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
     data = cursor.execute(
-        f"SELECT situation FROM parking WHERE lokatsion={lokatsion}")
-    result = data.fetchall()[0][0]
+        f"SELECT * FROM parking")
+    result = data.fetchall()
     connect.close()
-    return result
-
+    for x in result:
+        if x[1] == 0:
+            return x[0]
+    connect.close()
+    return "Bosh joy yoq"
+get_stiuation()
 def get_all():
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()

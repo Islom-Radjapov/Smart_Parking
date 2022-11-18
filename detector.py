@@ -3,8 +3,6 @@ import cv2
 import csv
 from sql_code import add_stiuation, get_all
 
-class spots:
-    loc = 0
 font = cv2.FONT_HERSHEY_SIMPLEX
 def drawRectangle(img, a, b, c, d, num):
     sub_img = img[b:b + d, a:a + c]
@@ -14,16 +12,13 @@ def drawRectangle(img, a, b, c, d, num):
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 255, 0), 3)
         cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
         add_stiuation(num, 0)
-        spots.loc += 1
     else:
         add_stiuation(num, 1)
         cv2.putText(img, f"{num}", (a, b), font, 1, (0, 255, 0), 2)
         cv2.rectangle(img, (a, b), (a + c, b + d), (0, 0, 255), 3)
 
-
 def callback(foo):
     pass
-
 
 with open('coordinates/rois.csv', 'r', newline='') as inf:
     csvr = csv.reader(inf)
@@ -36,8 +31,8 @@ cv2.createTrackbar('Threshold2', 'parameters', 402, 700, callback)
 cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
-VIDEO_SOURCE = "test_videos/bay-park-2.gif"
-camera = cv2.VideoCapture(VIDEO_SOURCE)
+
+camera = cv2.VideoCapture("test_videos/bay-park-2.gif")
 
 # start the live feed
 while camera.isOpened():
@@ -54,7 +49,8 @@ while camera.isOpened():
 
     for i in range(len(rois)):
         drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3], i)
-        cv2.putText(frame, f"Barcha band joylar=> {get_all()[0]} Bosh joylar=> {get_all()[1]}", (40, 450), font, 1, (0, 255, 1), 2)
+        cv2.putText(frame, f"Barcha band joylar=> {get_all()[0]}", (40, 450), font, 1, (0, 0, 255), 2)
+        cv2.putText(frame, f"Bosh joylar=> {get_all()[1]}", (500, 450), font, 1,(255, 0, 0), 2)
 
 
     cv2.imshow('frame', frame)
