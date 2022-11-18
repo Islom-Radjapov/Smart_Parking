@@ -24,3 +24,20 @@ def get_stiuation(lokatsion):
     data = cursor.execute(
         f"SELECT situation FROM parking WHERE lokatsion={lokatsion}")
     return data
+
+def get_all():
+    connect = sqlite3.connect("base.db")
+    cursor = connect.cursor()
+    data = cursor.execute(
+        f"SELECT * FROM parking").fetchall()
+    band = 0
+    bosh = 0
+    for x in data:
+        if x[1] == 1:
+            band += 1
+        if x[1] == 0:
+            bosh += 1
+
+    return band, bosh
+
+# get_all()

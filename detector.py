@@ -1,9 +1,7 @@
 from time import sleep
 import cv2
 import csv
-from database import add_stiuation, get_stiuation
-
-
+from database import add_stiuation, get_stiuation, get_all
 
 class spots:
     loc = 0
@@ -56,12 +54,10 @@ while True:
 
 
     for i in range(len(rois)):
-        sleep(0.4)
-        print("lokation=>",i , "situation=>", get_stiuation(i).fetchone()[0])
         drawRectangle(frame, rois[i][0], rois[i][1], rois[i][2], rois[i][3], i)
 
-
-
+    print( "band joy=>", get_all()[0] )
+    print( "bosh joylar=>", get_all()[1] )
     # font = cv2.FONT_HERSHEY_SIMPLEX
     # cv2.putText(frame, 'Available spots: ' + str(spots.loc), (10, 30), font, 1, (0, 255, 0), 3)
     # print(str(spots.loc))
