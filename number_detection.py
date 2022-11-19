@@ -22,13 +22,12 @@ while camera.isOpened():
         reader = easyocr.Reader(['en'])
         result = reader.readtext(imgRoi)
         iff = bool(result)
-        print(result)
         if iff:
             # faqat nomerni olish
             try:
                 print(result[1][1])
             except:
-                print(result)
+                pass
     cv2.imshow("Result", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
