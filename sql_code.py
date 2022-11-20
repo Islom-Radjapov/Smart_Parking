@@ -1,5 +1,5 @@
 import sqlite3
-
+from datetime import datetime
 def add_stiuation(lokatsion, situation):
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
@@ -32,7 +32,7 @@ def get_stiuation():
             return x[0]
     connect.close()
     return "Bosh joy yoq"
-get_stiuation()
+
 def get_all():
     connect = sqlite3.connect("base.db")
     cursor = connect.cursor()
@@ -48,5 +48,29 @@ def get_all():
         if x[1] == 0:
             bosh += 1
     return band, bosh
-# print( get_stiuation(17) )
-# print( get_all() )
+
+
+def add_car_number(number):
+    connect = sqlite3.connect("base.db")
+    cursor = connect.cursor()
+    cursor.execute(
+        f"CREATE TABLE IF NOT EXISTS car (number text, date DATE)" )
+    now = datetime.now()
+    cursor.execute(
+            f"INSERT INTO car VALUES ('{number}', '{now}')")
+    connect.commit()
+    cursor.close()
+    connect.close()
+
+def get_car_number(number):
+    connect = sqlite3.connect("base.db")
+    cursor = connect.cursor()
+    now = datetime.now()
+    data = cursor.execute(f"SELECT * FROM car WHERE number='{number}'")
+    result = data.fetchone()
+    res = datetime.strptime(result[1], '%Y-%m-%d %H:%M:%S.%f')
+    res_time = now - res
+    connect.close()
+    return result[0], res_time
+# add_car_number("01 B 111 BB")
+# print( get_car_number("01 B 111 BB") )

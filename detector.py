@@ -54,10 +54,11 @@ while camera.isOpened():
 
 
     cv2.imshow('frame', frame)
-    sleep(0.2)
+    sleep(0.15)
 
-    canny = cv2.Canny(frame2, lowThreshold, highThreshold)
-    cv2.imshow('canny',canny)
+    # chorniy holatida ham korsatadi
+    # canny = cv2.Canny(frame2, lowThreshold, highThreshold)
+    # cv2.imshow('canny',canny)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
@@ -66,3 +67,4 @@ cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     ...
+

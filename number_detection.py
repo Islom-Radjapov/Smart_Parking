@@ -1,5 +1,6 @@
 import cv2
 import easyocr
+from sql_code import add_car_number
 
 plateCascade = cv2.CascadeClassifier("model.xml")
 
@@ -25,6 +26,7 @@ while camera.isOpened():
         if iff:
             # faqat nomerni olish
             try:
+                add_car_number(result[1][1])
                 print(result[1][1])
             except:
                 pass
