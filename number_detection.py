@@ -2,9 +2,10 @@ import cv2
 import easyocr
 from sql_code import add_car_number
 
-plateCascade = cv2.CascadeClassifier("model.xml")
+# plateCascade = cv2.CascadeClassifier(r'ML_model\haarcascade_frontalcatface_1.xml')
+plateCascade = cv2.CascadeClassifier(r'ML_model\haarcascade_frontalcatface_extended_2.xml')
 
-camera = cv2.VideoCapture("test_videos/car_num.mp4")
+camera = cv2.VideoCapture(0)
 minArea = 500
 count = 0
 
@@ -19,18 +20,19 @@ while camera.isOpened():
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
             cv2.putText(frame, "Number", (x, y - 5), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
             imgRoi = frame[y:y + h, x: x + w]
+            cv2.imshow("Result", imgRoi)
         # rasmdan nomerni oqib olish
-        reader = easyocr.Reader(['en'])
-        result = reader.readtext(imgRoi)
-        iff = bool(result)
-        if iff:
-            # faqat nomerni olish
-            try:
-                add_car_number(result[1][1])
-                print(result[1][1])
-            except:
-                pass
-    cv2.imshow("Result", frame)
+        # reader = easyocr.Reader(['en'])
+        # result = reader.readtext(imgRoi)
+        # iff = bool(result)
+        # if iff:
+        #     # faqat nomerni olish
+        #     try:
+        #         add_car_number(result[1][1])
+        #         print(result[1][1])
+        #     except:
+        #         pass
+    cv2.imshow("Camera", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
