@@ -11,7 +11,7 @@ while camera.isOpened():
 
 
     ret, frame = camera.read()
-# img = cv2.imread("test_videos\laseti.jpg")
+    # img = cv2.imread("test_videos\laseti.jpg")
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # plt.imshow(cv2.cvtColor(gray, cv2.COLOR_BGR2RGB))
