@@ -22,16 +22,16 @@ while camera.isOpened():
             imgRoi = frame[y:y + h, x: x + w]
             cv2.imshow("Result", imgRoi)
         # rasmdan nomerni oqib olish
-        # reader = easyocr.Reader(['en'])
-        # result = reader.readtext(imgRoi)
-        # iff = bool(result)
-        # if iff:
-        #     # faqat nomerni olish
-        #     try:
-        #         add_car_number(result[1][1])
-        #         print(result[1][1])
-        #     except:
-        #         pass
+        reader = easyocr.Reader(['en'])
+        result = reader.readtext(imgRoi)
+        iff = bool(result)
+        if iff:
+            # faqat nomerni olish
+            try:
+                add_car_number(result[1][1])
+                print(result[1][1])
+            except:
+                pass
     cv2.imshow("Camera", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

@@ -1,7 +1,7 @@
 import cv2
 from sql_code import get_stiuation
 
-camera = cv2.VideoCapture("test_videos/qora.MOV")
+camera = cv2.VideoCapture("test_media/qora.MOV")
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 

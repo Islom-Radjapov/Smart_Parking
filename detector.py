@@ -32,7 +32,7 @@ cv2.createTrackbar('Min pixels', 'parameters', 100, 1500, callback)
 cv2.createTrackbar('Max pixels', 'parameters', 323, 1500, callback)
 
 
-camera = cv2.VideoCapture("test_videos/bay-park-2.gif")
+camera = cv2.VideoCapture("test_media/bay-park-2.gif")
 
 # start the live feed
 while camera.isOpened():
